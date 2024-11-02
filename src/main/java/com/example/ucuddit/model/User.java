@@ -1,55 +1,45 @@
-package com.example.ucuddit.models;
+package com.example.ucuddit.model;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "\"user\"")
 public class User {
+
     @Id
     @SequenceGenerator(
             name = "user_sequence",
             sequenceName = "user_sequence",
             allocationSize = 1
-    )    @GeneratedValue(
+    )
+    @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "user_sequence"
     )
+    private Integer userId;
 
-    private Integer user_id;
-    private Integer Auth0_id;
+    private String auth0id;
     private String name;
     private String email;
+    private String imageUrl;
 
     public User() {
     }
 
-    public User(Integer user_id, Integer auth0_id, String name, String email) {
-        this.user_id = user_id;
-        Auth0_id = auth0_id;
-        this.name = name;
-        this.email = email;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public User(Integer  auth0_id, String name, String email) {
-        Auth0_id = auth0_id;
-        this.name = name;
-        this.email = email;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public Integer  getUser_id() {
-        return user_id;
+    public String getAuth0id() {
+        return auth0id;
     }
 
-    public void setUser_id(Integer  user_id) {
-        this.user_id = user_id;
-    }
-
-    public Integer  getAuth0_id() {
-        return Auth0_id;
-    }
-
-    public void setAuth0_id(Integer  auth0_id) {
-        Auth0_id = auth0_id;
+    public void setAuth0id(String auth0id) {
+        this.auth0id = auth0id;
     }
 
     public String getName() {
@@ -68,14 +58,22 @@ public class User {
         this.email = email;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @Override
     public String toString() {
         return "User{" +
-                "user_id=" + user_id +
-                ", Auth0_id=" + Auth0_id +
+                "userId=" + userId +
+                ", auth0id='" + auth0id + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 }
-
