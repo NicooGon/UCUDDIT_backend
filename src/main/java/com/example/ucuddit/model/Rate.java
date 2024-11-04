@@ -1,5 +1,6 @@
 package com.example.ucuddit.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,14 +12,14 @@ public class Rate {
             name = "rate_sequence",
             sequenceName = "rate_sequence",
             allocationSize = 1
-    )    @GeneratedValue(
+    )
+    @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "rate_sequence"
     )
-    private Integer rateId;
 
-    private Integer likes;
-    private Integer dislikes;
+    private Integer rateId;
+    private Integer likes=0;
 
     @ManyToOne
     @JoinColumn(name = "userId")
@@ -29,6 +30,7 @@ public class Rate {
     private Comment comment;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "postId")
     private Post post;
 
@@ -47,16 +49,8 @@ public class Rate {
         return likes;
     }
 
-    public void setLike(Integer likes) {
+    public void setLikes(Integer likes) {
         this.likes = likes;
-    }
-
-    public Integer getDislike() {
-        return dislikes;
-    }
-
-    public void setDislike(Integer dislikes) {
-        this.dislikes = dislikes;
     }
 
     public User getUser() {
@@ -88,7 +82,6 @@ public class Rate {
         return "Rate{" +
                 "rateId=" + rateId +
                 ", likes=" + likes +
-                ", dislikes=" + dislikes +
                 ", user=" + user +
                 ", comment=" + comment +
                 ", post=" + post +

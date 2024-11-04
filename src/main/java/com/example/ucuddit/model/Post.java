@@ -1,8 +1,9 @@
 package com.example.ucuddit.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "\"post\"")
@@ -13,7 +14,8 @@ public class Post {
             name = "post_sequence",
             sequenceName = "post_sequence",
             allocationSize = 1
-    )    @GeneratedValue(
+    )
+    @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "post_sequence"
     )
@@ -23,6 +25,10 @@ public class Post {
     @JoinColumn(name = "userId")
     private User user;
 
+    @OneToMany(mappedBy = "post")
+    @JsonManagedReference
+    private List<Rate> rates;
+
     private String title;
     private String content;
     private String image;
@@ -31,12 +37,12 @@ public class Post {
     public Post() {
     }
 
-    public Integer getPost_id() {
+    public Integer getPostId() {
         return postId;
     }
 
-    public void setPost_id(Integer post_id) {
-        this.postId = post_id;
+    public void setPostId(Integer postId) {
+        this.postId = postId;
     }
 
     public User getUser() {
@@ -45,6 +51,14 @@ public class Post {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Rate> getRates() {
+        return rates;
+    }
+
+    public void setRates(List<Rate> rates) {
+        this.rates = rates;
     }
 
     public String getTitle() {
@@ -82,7 +96,7 @@ public class Post {
     @Override
     public String toString() {
         return "Post{" +
-                "post_id=" + postId +
+                "postId=" + postId +
                 ", user=" + user +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
@@ -90,5 +104,4 @@ public class Post {
                 ", createdAt=" + createdAt +
                 '}';
     }
-
 }
