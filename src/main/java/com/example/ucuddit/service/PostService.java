@@ -21,6 +21,10 @@ public class PostService {
         this.userRepository = userRepository;
     }
 
+    public Post getPostById(Integer postId) {
+        return postRepository.findBypostId(postId);
+    }
+
     public List<Post> getAllPosts() {
         return postRepository.findAll();
     }
