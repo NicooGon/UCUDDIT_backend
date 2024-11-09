@@ -30,8 +30,12 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public List<Post> getAllPostByUsername(String name) {
-        return postRepository.findByUser_Name(name);
+    public List<Post> getAllPostByUserauth0id(String auth0id) {
+        return postRepository.findByUser_auth0id(auth0id);
+    }
+
+    public Post getPostByTitle(String title) {
+        return postRepository.findByTitle(title);
     }
 
     public Post createPost(String auth0id, String title, String content) {

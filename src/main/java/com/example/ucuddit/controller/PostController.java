@@ -26,9 +26,14 @@ public class PostController {
         return postService.getAllPosts();
     }
 
+    @GetMapping("/postByTitle")
+    public Post getPostByTitle(@RequestParam String title) {
+        return postService.getPostByTitle(title);
+    }
+
     @GetMapping("/postsByUser")
-    public List<Post> getAllPostByUser(@RequestParam String name) {
-        return postService.getAllPostByUsername(name);
+    public List<Post> getAllPostByUser(@RequestParam String auth0id) {
+        return postService.getAllPostByUserauth0id(auth0id);
     }
 
     @GetMapping("/postById")

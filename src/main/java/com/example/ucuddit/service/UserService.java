@@ -1,4 +1,5 @@
 package com.example.ucuddit.service;
+import com.example.ucuddit.model.Post;
 import com.example.ucuddit.model.User;
 import com.example.ucuddit.respository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,10 @@ public class UserService {
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public User getUserById(String auth0id) {
+        return userRepository.findByauth0id(auth0id);
     }
 
     public User checkOrCreateUser(String auth0id, String name, String email, String imageUrl) {

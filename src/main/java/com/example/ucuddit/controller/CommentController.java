@@ -27,7 +27,7 @@ public class CommentController {
     }
 
     @GetMapping("/commentsByUser")
-    public List<Comment> updateComment(@RequestParam String name) {
-        return commentService.getAllCommentsByUsername(name);
+    public List<Comment> getAllCommentsByUser(@RequestParam String auth0id) {
+        return commentService.getAllCommentsByUserauth0id(auth0id);
     }
 }
