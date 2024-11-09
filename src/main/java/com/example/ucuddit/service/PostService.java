@@ -1,5 +1,6 @@
 package com.example.ucuddit.service;
 
+import com.example.ucuddit.model.Comment;
 import com.example.ucuddit.model.Post;
 import com.example.ucuddit.model.User;
 import com.example.ucuddit.respository.PostRepository;
@@ -27,6 +28,10 @@ public class PostService {
 
     public List<Post> getAllPosts() {
         return postRepository.findAll();
+    }
+
+    public List<Post> getAllPostByUsername(String name) {
+        return postRepository.findByUser_Name(name);
     }
 
     public Post createPost(String auth0id, String title, String content) {

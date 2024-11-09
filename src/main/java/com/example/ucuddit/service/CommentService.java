@@ -28,6 +28,10 @@ public class CommentService {
         return commentRepository.findByPost_PostId(postId);
     }
 
+    public List<Comment> getAllCommentsByUsername(String name) {
+        return commentRepository.findByUser_Name(name);
+    }
+
     public Comment saveComment(String auth0id, Integer postId, String content) {
         Post existingPost = postRepository.findBypostId(postId);
         User existingUser = userRepository.findByauth0id(auth0id);

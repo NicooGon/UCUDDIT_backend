@@ -25,4 +25,9 @@ public class CommentController {
     public Comment saveComment(@RequestBody Comment comment) {
         return commentService.saveComment(comment.getUser().getAuth0id(),comment.getPost().getPostId(), comment.getContent());
     }
+
+    @GetMapping("/commentsByUser")
+    public List<Comment> updateComment(@RequestParam String name) {
+        return commentService.getAllCommentsByUsername(name);
+    }
 }
