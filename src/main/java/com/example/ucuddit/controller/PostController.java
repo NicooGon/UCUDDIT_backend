@@ -27,7 +27,7 @@ public class PostController {
     }
 
     @GetMapping("/postByTitle")
-    public Post getPostByTitle(@RequestParam String title) {
+    public List<Post> getPostByTitle(@RequestParam String title) {
         return postService.getPostByTitle(title);
     }
 

@@ -10,5 +10,5 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Integer> {
     Post findBypostId(Integer postId);
     List<Post> findByUser_auth0id(String auth0id);
-    Post findByTitle(String title);
+    List<Post> findByTitleContainingIgnoreCase(String title);
 }

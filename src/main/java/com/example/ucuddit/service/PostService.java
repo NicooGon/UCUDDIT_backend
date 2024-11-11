@@ -34,8 +34,8 @@ public class PostService {
         return postRepository.findByUser_auth0id(auth0id);
     }
 
-    public Post getPostByTitle(String title) {
-        return postRepository.findByTitle(title);
+    public List<Post> getPostByTitle(String title) {
+        return postRepository.findByTitleContainingIgnoreCase(title);
     }
 
     public Post createPost(String auth0id, String title, String content) {
