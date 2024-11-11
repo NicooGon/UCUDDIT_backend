@@ -19,7 +19,7 @@ public class Rate {
     )
 
     private Integer rateId;
-    private Integer likes=0;
+    private Integer likes;
 
     @ManyToOne
     @JoinColumn(name = "userId")
