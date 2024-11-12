@@ -1,5 +1,6 @@
 package com.example.ucuddit.controller;
 
+import com.example.ucuddit.DTO.PostDTO;
 import com.example.ucuddit.model.Post;
 import com.example.ucuddit.model.Rate;
 import com.example.ucuddit.service.RateService;
@@ -58,7 +59,8 @@ public class RateController {
     }
 
     @GetMapping("/likedByUser")
-    public List<Post> getLikedPosts(@RequestParam String auth0id, Integer likes) {
-        return rateService.getPostsByUserAndLikes(auth0id, likes);
+    public List<PostDTO> getLikedPosts(@RequestParam String auth0id, @RequestParam Integer likes) {
+        List<PostDTO> postsDTO = rateService.getPostsByUserAndLikes(auth0id, likes);
+        return postsDTO;
     }
 }

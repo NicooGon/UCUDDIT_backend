@@ -17,8 +17,8 @@ public class Rate {
             strategy = GenerationType.SEQUENCE,
             generator = "rate_sequence"
     )
-
     private Integer rateId;
+
     private Integer likes;
 
     @ManyToOne

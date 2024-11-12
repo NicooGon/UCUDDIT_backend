@@ -1,5 +1,6 @@
 package com.example.ucuddit.controller;
 
+import com.example.ucuddit.DTO.CommentDTO;
 import com.example.ucuddit.model.Comment;
 import com.example.ucuddit.service.CommentService;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class CommentController {
     }
 
     @GetMapping("/commentsByPost")
-    public List<Comment> getAllCommentsByPost(@RequestParam Integer postId) {
+    public List<CommentDTO> getAllCommentsByPost(@RequestParam Integer postId) {
         return commentService.getAllCommentsByPostId(postId);
     }
 
@@ -27,7 +28,7 @@ public class CommentController {
     }
 
     @GetMapping("/commentsByUser")
-    public List<Comment> getAllCommentsByUser(@RequestParam String auth0id) {
+    public List<CommentDTO> getAllCommentsByUser(@RequestParam String auth0id) {
         return commentService.getAllCommentsByUserauth0id(auth0id);
     }
 }

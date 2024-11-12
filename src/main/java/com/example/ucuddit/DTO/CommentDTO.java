@@ -1,37 +1,27 @@
-package com.example.ucuddit.model;
+package com.example.ucuddit.DTO;
 
-import jakarta.persistence.*;
+import com.example.ucuddit.model.Post;
+import com.example.ucuddit.model.User;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "\"comment\"")
-public class Comment {
+public class CommentDTO {
 
-    @Id
-    @SequenceGenerator(
-            name = "comment_sequence",
-            sequenceName = "comment_sequence",
-            allocationSize = 1
-    )    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "comment_sequence"
-    )
     private Integer commentId;
-
-    @ManyToOne
-    @JoinColumn(name = "postId")
     private Post post;
-
-    @ManyToOne
-    @JoinColumn(name = "userId")
     private User user;
-
-    @Column(length = 601)
     private String content;
     private LocalDate creationDate;
 
-    public Comment() {
+    public CommentDTO() {
+    }
+
+    public CommentDTO(Integer commentId, Post post, User user, String content, LocalDate creationDate) {
+        this.commentId = commentId;
+        this.post = post;
+        this.user = user;
+        this.content = content;
+        this.creationDate = creationDate;
     }
 
     public Integer getCommentId() {
@@ -72,17 +62,5 @@ public class Comment {
 
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "commentId=" + commentId +
-                ", post=" + post +
-                ", user=" + user +
-                ", content='" + content + '\'' +
-                ", creationDate=" + creationDate +
-                '}';
     }
 }

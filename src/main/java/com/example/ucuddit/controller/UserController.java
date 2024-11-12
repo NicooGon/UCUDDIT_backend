@@ -1,5 +1,5 @@
 package com.example.ucuddit.controller;
-import com.example.ucuddit.model.Post;
+import com.example.ucuddit.DTO.UserDTO;
 import com.example.ucuddit.model.User;
 import com.example.ucuddit.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ public class UserController {
     }
 
     @GetMapping("/userByAuth0id")
-    public User getUserById(@RequestParam String auth0id) {
+    public UserDTO getUserById(@RequestParam String auth0id) {
         return userService.getUserById(auth0id);
     }
 }

@@ -1,43 +1,32 @@
-package com.example.ucuddit.model;
+package com.example.ucuddit.DTO;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
+import com.example.ucuddit.model.Rate;
+import com.example.ucuddit.model.User;
+
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
-@Table(name = "\"post\"")
-public class Post {
+public class PostDTO {
 
-    @Id
-    @SequenceGenerator(
-            name = "post_sequence",
-            sequenceName = "post_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "post_sequence"
-    )
     private Integer postId;
-
-    @ManyToOne
-    @JoinColumn(name = "userId")
     private User user;
-
-    @OneToMany(mappedBy = "post")
-    @JsonManagedReference
     private List<Rate> rates;
-
-    @Column(length = 51)
     private String title;
-
-    @Column(length = 601)
     private String content;
     private String image;
     private LocalDate createdAt;
 
-    public Post() {
+    public PostDTO() {
+    }
+
+    public PostDTO(Integer postId, User user, List<Rate> rates, String title, String content, String image, LocalDate createdAt) {
+        this.postId = postId;
+        this.user = user;
+        this.rates = rates;
+        this.title = title;
+        this.content = content;
+        this.image = image;
+        this.createdAt = createdAt;
     }
 
     public Integer getPostId() {
@@ -94,17 +83,5 @@ public class Post {
 
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
-    }
-
-    @Override
-    public String toString() {
-        return "Post{" +
-                "postId=" + postId +
-                ", user=" + user +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", image='" + image + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
     }
 }

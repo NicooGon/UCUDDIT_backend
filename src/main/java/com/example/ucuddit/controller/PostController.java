@@ -1,5 +1,6 @@
 package com.example.ucuddit.controller;
 
+import com.example.ucuddit.DTO.PostDTO;
 import com.example.ucuddit.model.Post;
 import com.example.ucuddit.service.PostService;
 import org.springframework.web.bind.annotation.*;
@@ -22,22 +23,22 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public List<Post> getAllPosts() {
+    public List<PostDTO> getAllPosts() {
         return postService.getAllPosts();
     }
 
     @GetMapping("/postByTitle")
-    public List<Post> getPostByTitle(@RequestParam String title) {
+    public List<PostDTO> getPostByTitle(@RequestParam String title) {
         return postService.getPostByTitle(title);
     }
 
     @GetMapping("/postsByUser")
-    public List<Post> getAllPostByUser(@RequestParam String auth0id) {
+    public List<PostDTO> getAllPostByUser(@RequestParam String auth0id) {
         return postService.getAllPostByUserauth0id(auth0id);
     }
 
     @GetMapping("/postById")
-    public Post getPostById(@RequestParam Integer postId) {
+    public PostDTO getPostById(@RequestParam Integer postId) {
         return postService.getPostById(postId);
     }
 }
