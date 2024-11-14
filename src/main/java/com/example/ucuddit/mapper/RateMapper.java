@@ -1,6 +1,6 @@
-package com.example.ucuddit.Mapper;
+package com.example.ucuddit.mapper;
 
-import com.example.ucuddit.DTO.RateDTO;
+import com.example.ucuddit.dto.RateDTO;
 import com.example.ucuddit.model.Rate;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

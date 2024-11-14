@@ -1,9 +1,9 @@
 package com.example.ucuddit.controller;
 
-import com.example.ucuddit.DTO.PostDTO;
-import com.example.ucuddit.model.Post;
-import com.example.ucuddit.model.Rate;
-import com.example.ucuddit.service.RateService;
+import com.example.ucuddit.dto.PostDTO;
+import com.example.ucuddit.dto.RateDTO;
+import com.example.ucuddit.interfaces.service.IRateService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,19 +12,16 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class RateController {
 
-    private final RateService rateService;
-
-    public RateController(RateService rateService) {
-        this.rateService = rateService;
-    }
+    @Autowired
+    private IRateService rateService;
 
     @PostMapping("/toggle")
-    public Rate toggleRate(@RequestParam String auth0id, @RequestParam Integer postId, @RequestParam Integer rateValue) {
+    public RateDTO toggleRate(@RequestParam String auth0id, @RequestParam Integer postId, @RequestParam Integer rateValue) {
         return rateService.toggleRate(auth0id, postId, rateValue);
     }
 
     @PostMapping("/toggle/comment")
-    public Rate toggleRateComment(@RequestParam String auth0id, @RequestParam Integer commentId, @RequestParam Integer rateValue) {
+    public RateDTO toggleRateComment(@RequestParam String auth0id, @RequestParam Integer commentId, @RequestParam Integer rateValue) {
         return rateService.toggleRateComment(auth0id, commentId, rateValue);
     }
 

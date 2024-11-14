@@ -1,32 +1,30 @@
 package com.example.ucuddit.service;
 
-import com.example.ucuddit.DTO.CommentDTO;
-import com.example.ucuddit.Mapper.CommentMapper;
-import com.example.ucuddit.Mapper.CommentMapperImpl;
+import com.example.ucuddit.dto.CommentDTO;
+import com.example.ucuddit.interfaces.service.ICommentService;
+import com.example.ucuddit.mapper.CommentMapper;
 import com.example.ucuddit.model.Comment;
 import com.example.ucuddit.model.Post;
 import com.example.ucuddit.model.User;
 import com.example.ucuddit.respository.CommentRepository;
 import com.example.ucuddit.respository.PostRepository;
 import com.example.ucuddit.respository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class CommentService {
+public class CommentService implements ICommentService {
 
-    private final CommentRepository commentRepository;
-    private final PostRepository postRepository;
-    private final UserRepository userRepository;
-    private static final CommentMapper commentMapper = CommentMapperImpl.INSTANCE;
-
-    public CommentService(CommentRepository commentRepository, PostRepository postRepository, UserRepository userRepository) {
-        this.commentRepository = commentRepository;
-        this.postRepository = postRepository;
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    private CommentRepository commentRepository;
+    @Autowired
+    private PostRepository postRepository;
+    @Autowired
+    private UserRepository userRepository;
+    private static final CommentMapper commentMapper = CommentMapper.INSTANCE;
 
     public List<CommentDTO> getAllCommentsByPostId(Integer postId) {
         List<Comment> comments = commentRepository.findByPost_PostId(postId);
@@ -48,7 +46,7 @@ public class CommentService {
         return comments.stream().map(commentMapper::commentToCommentDTO).toList();
     }
 
-    public Comment saveComment(String auth0id, Integer postId, String content) {
+    public CommentDTO saveComment(String auth0id, Integer postId, String content) {
         Post existingPost = postRepository.findBypostId(postId);
         User existingUser = userRepository.findByauth0id(auth0id);
 
@@ -61,7 +59,7 @@ public class CommentService {
         newComment.setUser(existingUser);
         newComment.setContent(content);
         newComment.setCreationDate(LocalDate.now());
-
-        return commentRepository.save(newComment);
+        commentRepository.save(newComment);
+        return new CommentDTO(newComment.getCommentId(), newComment.getPost(), newComment.getUser(), newComment.getContent(), newComment.getCreationDate() );
     }
 }

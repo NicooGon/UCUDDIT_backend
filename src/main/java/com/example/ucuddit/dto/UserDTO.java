@@ -1,4 +1,4 @@
-package com.example.ucuddit.DTO;
+package com.example.ucuddit.dto;
 
 public class UserDTO {
 

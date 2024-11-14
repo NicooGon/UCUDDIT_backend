@@ -1,4 +1,4 @@
-package com.example.ucuddit.DTO;
+package com.example.ucuddit.dto;
 
 import com.example.ucuddit.model.Rate;
 import com.example.ucuddit.model.User;

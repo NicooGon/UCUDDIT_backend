@@ -1,7 +1,9 @@
 package com.example.ucuddit.service;
 
-import com.example.ucuddit.DTO.PostDTO;
-import com.example.ucuddit.Mapper.PostMapper;
+import com.example.ucuddit.dto.PostDTO;
+import com.example.ucuddit.dto.RateDTO;
+import com.example.ucuddit.interfaces.service.IRateService;
+import com.example.ucuddit.mapper.PostMapper;
 import com.example.ucuddit.model.Comment;
 import com.example.ucuddit.model.Post;
 import com.example.ucuddit.model.Rate;
@@ -10,27 +12,25 @@ import com.example.ucuddit.respository.CommentRepository;
 import com.example.ucuddit.respository.PostRepository;
 import com.example.ucuddit.respository.RateRepository;
 import com.example.ucuddit.respository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class RateService {
+public class RateService implements IRateService {
 
-    private final RateRepository rateRepository;
-    private final UserRepository userRepository;
-    private final PostRepository postRepository;
-    private final CommentRepository commentRepository;
+    @Autowired
+    private RateRepository rateRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private PostRepository postRepository;
+    @Autowired
+    private CommentRepository commentRepository;
     private static final PostMapper postMapper = PostMapper.INSTANCE;
 
-    public RateService(RateRepository rateRepository, UserRepository userRepository, PostRepository postRepository, CommentRepository commentRepository) {
-        this.rateRepository = rateRepository;
-        this.userRepository = userRepository;
-        this.postRepository = postRepository;
-        this.commentRepository = commentRepository;
-    }
-
-    public Rate toggleRate(String auth0id, Integer postId, Integer rateValue) {
+    public RateDTO toggleRate(String auth0id, Integer postId, Integer rateValue) {
 
         User user = userRepository.findByauth0id(auth0id);
         Post post = postRepository.findBypostId(postId);
@@ -47,7 +47,8 @@ public class RateService {
             else {
                 existingRate.setLikes(rateValue);
             }
-            return rateRepository.save(existingRate);
+            existingRate = rateRepository.save(existingRate);
+            return new RateDTO(existingRate.getRateId(), existingRate.getLikes(), user, null, post);
         }
         else {
             Rate newRate = new Rate();
@@ -55,11 +56,12 @@ public class RateService {
             newRate.setPost(post);
             newRate.setLikes(rateValue);
 
-            return rateRepository.save(newRate);
+            Rate savedRate = rateRepository.save(newRate);
+            return new RateDTO(savedRate.getRateId(), savedRate.getLikes(), user, null, post);
         }
     }
 
-    public Rate toggleRateComment(String auth0id, Integer commentId, Integer rateValue) {
+    public RateDTO toggleRateComment(String auth0id, Integer commentId, Integer rateValue) {
 
         User user = userRepository.findByauth0id(auth0id);
         Comment comment = commentRepository.findBycommentId(commentId);
@@ -76,7 +78,8 @@ public class RateService {
             else {
                 existingRate.setLikes(rateValue);
             }
-            return rateRepository.save(existingRate);
+            existingRate = rateRepository.save(existingRate);
+            return new RateDTO(existingRate.getRateId(), existingRate.getLikes(), user, comment, null);
         }
         else {
             Rate newRate = new Rate();
@@ -84,7 +87,8 @@ public class RateService {
             newRate.setComment(comment);
             newRate.setLikes(rateValue);
 
-            return rateRepository.save(newRate);
+            Rate savedRate = rateRepository.save(newRate);
+            return new RateDTO(savedRate.getRateId(), savedRate.getLikes(), user, comment, null);
         }
     }
 

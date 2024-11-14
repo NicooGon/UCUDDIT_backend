@@ -1,8 +1,7 @@
 package com.example.ucuddit.controller;
 
-import com.example.ucuddit.DTO.CommentDTO;
-import com.example.ucuddit.model.Comment;
-import com.example.ucuddit.service.CommentService;
+import com.example.ucuddit.dto.CommentDTO;
+import com.example.ucuddit.interfaces.service.ICommentService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,9 +10,9 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class CommentController {
 
-    private final CommentService commentService;
+    private final ICommentService commentService;
 
-    public CommentController(CommentService commentService) {
+    public CommentController(ICommentService commentService) {
         this.commentService = commentService;
     }
 
@@ -23,7 +22,7 @@ public class CommentController {
     }
 
     @PostMapping("/comments")
-    public Comment saveComment(@RequestBody Comment comment) {
+    public CommentDTO saveComment(@RequestBody CommentDTO comment) {
         return commentService.saveComment(comment.getUser().getAuth0id(),comment.getPost().getPostId(), comment.getContent());
     }
 

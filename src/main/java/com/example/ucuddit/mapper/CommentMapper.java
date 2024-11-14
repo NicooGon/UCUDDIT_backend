@@ -1,6 +1,6 @@
-package com.example.ucuddit.Mapper;
+package com.example.ucuddit.mapper;
 
-import com.example.ucuddit.DTO.CommentDTO;
+import com.example.ucuddit.dto.CommentDTO;
 import com.example.ucuddit.model.Comment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
