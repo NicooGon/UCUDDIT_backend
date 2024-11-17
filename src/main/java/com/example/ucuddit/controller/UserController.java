@@ -17,6 +17,10 @@ public class UserController {
         return userService.checkOrCreateUser(userDTO.getAuth0id(), userDTO.getName(), userDTO.getEmail(), userDTO.getImageUrl());
     }
 
+    @GetMapping("/userNative")
+    public UserDTO getUserNative() {
+        return userService.userNative();
+    }
 
     @GetMapping("/userByAuth0id")
     public UserDTO getUserById(@RequestParam String auth0id) {

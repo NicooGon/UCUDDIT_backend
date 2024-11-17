@@ -19,6 +19,18 @@ public class UserService implements IUserService {
         return userMapper.userToUserDTO(user);
     }
 
+    public UserDTO userNative() {
+        String auth0id = "google-oauth2|101483569146996195106";
+
+        User user = userRepository.findByauth0id(auth0id);
+
+        if (user == null) {
+
+            return null;
+        }
+        return userMapper.userToUserDTO(user);
+    }
+
     public UserDTO checkOrCreateUser(String auth0id, String name, String email, String imageUrl) {
         User existingUser = userRepository.findByauth0id(auth0id);
 

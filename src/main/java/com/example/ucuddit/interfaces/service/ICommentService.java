@@ -1,7 +1,6 @@
 package com.example.ucuddit.interfaces.service;
 
 import com.example.ucuddit.dto.CommentDTO;
-import com.example.ucuddit.model.Comment;
 
 import java.util.List;
 

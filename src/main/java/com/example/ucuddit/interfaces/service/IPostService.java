@@ -1,7 +1,6 @@
 package com.example.ucuddit.interfaces.service;
 
 import com.example.ucuddit.dto.PostDTO;
-import com.example.ucuddit.model.Post;
 
 import java.util.List;
 
