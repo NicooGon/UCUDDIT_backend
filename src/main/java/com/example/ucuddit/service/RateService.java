@@ -4,6 +4,7 @@ import com.example.ucuddit.dto.PostDTO;
 import com.example.ucuddit.dto.RateDTO;
 import com.example.ucuddit.interfaces.service.IRateService;
 import com.example.ucuddit.mapper.PostMapper;
+import com.example.ucuddit.mapper.RateMapper;
 import com.example.ucuddit.model.Comment;
 import com.example.ucuddit.model.Post;
 import com.example.ucuddit.model.Rate;
@@ -28,7 +29,8 @@ public class RateService implements IRateService {
     private PostRepository postRepository;
     @Autowired
     private CommentRepository commentRepository;
-    private static final PostMapper postMapper = PostMapper.INSTANCE;
+
+    private static final RateMapper rateMapper = RateMapper.INSTANCE;
 
     public RateDTO toggleRate(String auth0id, Integer postId, Integer rateValue) {
 
@@ -48,7 +50,7 @@ public class RateService implements IRateService {
                 existingRate.setLikes(rateValue);
             }
             existingRate = rateRepository.save(existingRate);
-            return new RateDTO(existingRate.getRateId(), existingRate.getLikes(), user, null, post);
+            return rateMapper.rateToRateDTO(existingRate);
         }
         else {
             Rate newRate = new Rate();
@@ -56,8 +58,8 @@ public class RateService implements IRateService {
             newRate.setPost(post);
             newRate.setLikes(rateValue);
 
-            Rate savedRate = rateRepository.save(newRate);
-            return new RateDTO(savedRate.getRateId(), savedRate.getLikes(), user, null, post);
+            rateRepository.save(newRate);
+            return rateMapper.rateToRateDTO(newRate);
         }
     }
 
@@ -79,7 +81,7 @@ public class RateService implements IRateService {
                 existingRate.setLikes(rateValue);
             }
             existingRate = rateRepository.save(existingRate);
-            return new RateDTO(existingRate.getRateId(), existingRate.getLikes(), user, comment, null);
+            return rateMapper.rateToRateDTO(existingRate);
         }
         else {
             Rate newRate = new Rate();
@@ -87,8 +89,8 @@ public class RateService implements IRateService {
             newRate.setComment(comment);
             newRate.setLikes(rateValue);
 
-            Rate savedRate = rateRepository.save(newRate);
-            return new RateDTO(savedRate.getRateId(), savedRate.getLikes(), user, comment, null);
+            rateRepository.save(newRate);
+            return rateMapper.rateToRateDTO(newRate);
         }
     }
 
@@ -149,12 +151,6 @@ public class RateService implements IRateService {
         }
     }
 
-    public List<PostDTO> getPostsByUserAndLikes(String auth0id, Integer likes) {
-        if (likes == null) {
-            throw new IllegalArgumentException("The likes value cannot be null.");
-        }
-        List<Post> posts = rateRepository.findPostsByAuth0idAndLikes(auth0id, likes);
-        return posts.stream()
-                .map(postMapper::postToPostDTO).toList();
-    }
+
+
 }

@@ -7,6 +7,7 @@ import com.example.ucuddit.model.Post;
 import com.example.ucuddit.model.Rate;
 import com.example.ucuddit.model.User;
 import com.example.ucuddit.respository.PostRepository;
+import com.example.ucuddit.respository.RateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.ucuddit.respository.UserRepository;
@@ -23,6 +24,8 @@ public class PostService implements IPostService {
     private UserRepository userRepository;
     @Autowired
     private PostRepository postRepository;
+    @Autowired
+    private RateRepository rateRepository;
     private static final PostMapper postMapper = PostMapper.INSTANCE;
 
     public PostDTO getPostById(Integer postId) {
@@ -73,6 +76,15 @@ public class PostService implements IPostService {
         return posts.stream().map(postMapper::postToPostDTO).toList();
     }
 
+    public List<PostDTO> getPostsByUserAndLikes(String auth0id, Integer likes) {
+        if (likes == null) {
+            throw new IllegalArgumentException("The likes value cannot be null.");
+        }
+        List<Post> posts = rateRepository.findPostsByAuth0idAndLikes(auth0id, likes);
+        return posts.stream()
+                .map(postMapper::postToPostDTO).toList();
+    }
+
     public PostDTO createPost(String auth0id, String title, Integer community, String content) {
         User existingUser = userRepository.findByauth0id(auth0id);
 
@@ -87,6 +99,6 @@ public class PostService implements IPostService {
         newPost.setContent(content);
         newPost.setCreatedAt(LocalDate.now());
         postRepository.save(newPost);
-        return new PostDTO(newPost.getPostId(), newPost.getUser(), Collections.emptyList(), newPost.getTitle(), newPost.getContent(), newPost.getImage(), newPost.getCreatedAt());
+        return postMapper.postToPostDTO(newPost);
     }
 }

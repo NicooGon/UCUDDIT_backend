@@ -22,6 +22,4 @@ public interface IRateService {
     Integer countDislikesByPostId(Integer postId);
 
     Integer getUserLikeForPost(String auth0id, Integer postId);
-
-    List<PostDTO> getPostsByUserAndLikes(String auth0id, Integer likes);
 }

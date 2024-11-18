@@ -44,4 +44,10 @@ public class PostController {
     public PostDTO getPostById(@RequestParam Integer postId) {
         return postService.getPostById(postId);
     }
+
+    @GetMapping("/likedByUser")
+    public List<PostDTO> getLikedPosts(@RequestParam String auth0id, @RequestParam Integer likes) {
+        List<PostDTO> postsDTO = postService.getPostsByUserAndLikes(auth0id, likes);
+        return postsDTO;
+    }
 }

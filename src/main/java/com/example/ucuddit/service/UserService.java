@@ -42,8 +42,8 @@ public class UserService implements IUserService {
             newUser.setEmail(email);
             newUser.setImageUrl(imageUrl);
             userRepository.save(newUser);
-            return new UserDTO(newUser.getUserId(), newUser.getAuth0id(), newUser.getName(), newUser.getEmail(), newUser.getImageUrl());
+            return userMapper.userToUserDTO(newUser);
         }
-        return new UserDTO(existingUser.getUserId(), existingUser.getAuth0id(), existingUser.getName(), existingUser.getEmail(), existingUser.getImageUrl());
+        return userMapper.userToUserDTO(existingUser);
     }
 }

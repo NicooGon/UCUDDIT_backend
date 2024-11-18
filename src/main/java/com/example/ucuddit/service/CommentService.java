@@ -60,6 +60,6 @@ public class CommentService implements ICommentService {
         newComment.setContent(content);
         newComment.setCreationDate(LocalDate.now());
         commentRepository.save(newComment);
-        return new CommentDTO(newComment.getCommentId(), newComment.getPost(), newComment.getUser(), newComment.getContent(), newComment.getCreationDate() );
+        return commentMapper.commentToCommentDTO(newComment);
     }
 }

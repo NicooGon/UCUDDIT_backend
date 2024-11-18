@@ -54,10 +54,4 @@ public class RateController {
     public Integer getUserLikeForComment(@PathVariable String auth0id, @PathVariable Integer commentId) {
         return rateService.getUserLikeForComment(auth0id, commentId);
     }
-
-    @GetMapping("/likedByUser")
-    public List<PostDTO> getLikedPosts(@RequestParam String auth0id, @RequestParam Integer likes) {
-        List<PostDTO> postsDTO = rateService.getPostsByUserAndLikes(auth0id, likes);
-        return postsDTO;
-    }
 }
