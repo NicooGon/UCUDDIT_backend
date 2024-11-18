@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Integer> {
     Post findBypostId(Integer postId);
+    List<Post> findBycommunity(Integer community);
     List<Post> findByUser_auth0id(String auth0id);
     List<Post> findByTitleContainingIgnoreCase(String title);
 }

@@ -12,6 +12,7 @@ public class PostDTO {
     private User user;
     private List<Rate> rates;
     private String title;
+    private Integer community;
     private String content;
     private String image;
     private LocalDate createdAt;
@@ -59,6 +60,14 @@ public class PostDTO {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Integer getCommunity() {
+        return community;
+    }
+
+    public void setCommunity(Integer community) {
+        this.community = community;
     }
 
     public String getContent() {

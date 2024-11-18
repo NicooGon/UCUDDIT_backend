@@ -17,12 +17,17 @@ public class PostController {
 
     @PostMapping("/save/posts")
     public PostDTO createPost(@RequestBody PostDTO post) {
-        return postService.createPost(post.getUser().getAuth0id(), post.getTitle(), post.getContent());
+        return postService.createPost(post.getUser().getAuth0id(), post.getTitle(), post.getCommunity(), post.getContent());
     }
 
     @GetMapping("/posts")
     public List<PostDTO> getAllPosts() {
         return postService.getAllPosts();
+    }
+
+    @GetMapping("/postsByCommunity")
+    public List<PostDTO> getAllPostsByCommunity(@RequestParam Integer community) {
+        return postService.getAllPostByComunnity(community);
     }
 
     @GetMapping("/postByTitle")

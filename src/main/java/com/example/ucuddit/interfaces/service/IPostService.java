@@ -11,7 +11,9 @@ public interface IPostService {
 
     List<PostDTO> getAllPostByUserauth0id(String auth0id);
 
+    List<PostDTO> getAllPostByComunnity(Integer community);
+
     List<PostDTO> getPostByTitle(String title);
 
-    PostDTO createPost(String auth0id, String title, String content);
+    PostDTO createPost(String auth0id, String title, Integer community, String content);
 }

@@ -53,6 +53,16 @@ public class PostService implements IPostService {
         return posts.stream().map(postMapper::postToPostDTO).toList();
     }
 
+    public List<PostDTO> getAllPostByComunnity(Integer community) {
+        List<Post> posts = postRepository.findBycommunity(community);
+
+        if (posts.isEmpty()) {
+            throw new IllegalArgumentException("No posts found for the specified community.");
+        }
+
+        return posts.stream().map(postMapper::postToPostDTO).toList();
+    }
+
     public List<PostDTO> getPostByTitle(String title) {
         List<Post> posts = postRepository.findByTitleContainingIgnoreCase(title);
 
@@ -63,7 +73,7 @@ public class PostService implements IPostService {
         return posts.stream().map(postMapper::postToPostDTO).toList();
     }
 
-    public PostDTO createPost(String auth0id, String title, String content) {
+    public PostDTO createPost(String auth0id, String title, Integer community, String content) {
         User existingUser = userRepository.findByauth0id(auth0id);
 
         if (existingUser == null) {
@@ -72,6 +82,7 @@ public class PostService implements IPostService {
 
         Post newPost = new Post();
         newPost.setTitle(title);
+        newPost.setCommunity(community);
         newPost.setUser(existingUser);
         newPost.setContent(content);
         newPost.setCreatedAt(LocalDate.now());

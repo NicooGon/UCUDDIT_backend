@@ -32,6 +32,8 @@ public class Post {
     @Column(length = 51)
     private String title;
 
+    private Integer community;
+
     @Column(length = 601)
     private String content;
     private String image;
@@ -96,12 +98,22 @@ public class Post {
         this.createdAt = createdAt;
     }
 
+    public Integer getCommunity() {
+        return community;
+    }
+
+    public void setCommunity(Integer community) {
+        this.community = community;
+    }
+
     @Override
     public String toString() {
         return "Post{" +
                 "postId=" + postId +
                 ", user=" + user +
+                ", rates=" + rates +
                 ", title='" + title + '\'' +
+                ", community=" + community +
                 ", content='" + content + '\'' +
                 ", image='" + image + '\'' +
                 ", createdAt=" + createdAt +
