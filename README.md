@@ -1,6 +1,6 @@
-\# Intrucciones
+# Intrucciones
 
-\## Tener instalado:
+## Tener instalado:
 
 - PostgreSQL versión 17
 - pgAdmin 4 v8.12 (o cualquier gestor de base de datos de preferencias)
@@ -9,16 +9,16 @@
 - Git, para clonar el repositorio que contiene el código fuente del proyecto
 
 
-\## Pasos para la instalación:
+## Pasos para la instalación:
 
 - Clonar el proyecto usando git clone <URL del repositorio>
 
-\### Configuración y ejecución del backend:
+### Configuración y ejecución del backend:
 
 - En postgres tener la base de datos creada con el nombre "ucuddit" y haber ejecutado el script
 - Ejecuta el backend desde IntelliJ IDEA y déjalo funcionando en segundo plano para que la aplicación móvil pueda conectarse a él. Las entidades en la base de datos se crearan automaticamente al ejecutar el backend.
 
-\## Arquitectura:
+## Arquitectura:
 
 - APIs REST:  
   Son el punto de entrada del backend. Se encargan de recibir las solicitudes HTTP del cliente (como `GET`, `POST`, `PUT` o `DELETE`) y devolver las respuestas correspondientes.
